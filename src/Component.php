@@ -78,7 +78,7 @@ class Component extends \yii\base\Component implements BootstrapInterface
             if (is_object($item)) {
                 $integrations[] = $item;
             } else {
-                $integrations[] = \Yii::createObject($item, [$options]);
+                $integrations[] = new $item();
             }
         }
 

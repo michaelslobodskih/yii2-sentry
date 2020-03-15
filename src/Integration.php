@@ -7,11 +7,9 @@ use Sentry\Event;
 use Sentry\Integration\IntegrationInterface;
 use Sentry\Options;
 use Sentry\SentrySdk;
-use Sentry\State\Hub;
 use Sentry\State\Scope;
-use yii\base\BaseObject;
 
-class Integration extends BaseObject implements IntegrationInterface
+class Integration implements IntegrationInterface
 {
     /**
      * List of HTTP methods for whom the request body must be passed to the Sentry
@@ -61,13 +59,6 @@ class Integration extends BaseObject implements IntegrationInterface
      * @var Options
      */
     protected $options;
-
-    public function __construct(Options $options, $config = [])
-    {
-        parent::__construct($config);
-
-        $this->options = $options;
-    }
 
     /**
      * {@inheritdoc}
