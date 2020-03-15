@@ -74,7 +74,7 @@ class Integration extends BaseObject implements IntegrationInterface
     public function setupOnce(): void
     {
         Scope::addGlobalEventProcessor(function (Event $event): Event {
-            $self = Hub::getCurrent()->getIntegration(self::class);
+            $self = Hub::getCurrentHub()->getIntegration(self::class);
 
             if (!$self instanceof self) {
                 return $event;
@@ -89,12 +89,12 @@ class Integration extends BaseObject implements IntegrationInterface
     protected function applyToEvent(Event $event): void
     {
         $request = \Yii::$app->getRequest();
-        
+
         // Skip if the current request is made via console.
         if ($request->isConsoleRequest) {
             return;
-        }        
-        
+        }
+
         $requestMethod = $request->getMethod();
 
         $requestData = [

@@ -1,5 +1,5 @@
 {
-    "name": "olegtsvetkov/yii2-sentry",
+    "name": "siamskoi/yii2-sentry",
     "description": "Yii2 integration for Sentry",
     "keywords": ["logging", "errors", "yii2", "sentry", "v2", "sdk"],
     "type": "library",
@@ -15,7 +15,7 @@
     },
     "require": {
         "php": "^7.1",
-        "sentry/sentry": "^2.0.1",
+        "sentry/sentry": "^2.1.0",
         "yiisoft/yii2": "~2.0.13"
     },
     "require-dev": {

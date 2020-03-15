@@ -58,7 +58,9 @@ class Component extends \yii\base\Component implements BootstrapInterface
             'prefixes' => [
                 $basePath,
             ],
-            'project_root' => $basePath,
+            'in_app_include' => [
+                $basePath,
+            ],
             'in_app_exclude' => [
                 $basePath . '/vendor/',
             ],
@@ -84,9 +86,9 @@ class Component extends \yii\base\Component implements BootstrapInterface
         /** @var ClientBuilder $builder */
         $builder = \Yii::$container->get(ClientBuilder::class, [$options]);
 
-        Hub::setCurrent(new Hub($builder->getClient()));
+        Hub::setCurrentHub(new Hub($builder->getClient()));
 
-        $this->hub = Hub::getCurrent();
+        $this->hub = Hub::getCurrentHub();
     }
 
     /**

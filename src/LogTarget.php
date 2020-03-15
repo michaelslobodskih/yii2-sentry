@@ -19,7 +19,7 @@ class LogTarget extends Target
      */
     public $component = 'sentry';
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -32,7 +32,7 @@ class LogTarget extends Target
     public function export()
     {
         // Get primary message source
-        $primaryMessage = array_reduce($this->messages, function ($message, $next) {
+        $primaryMessage = array_reduce($this->messages, static function ($message, $next) {
             // First iteration `$record` is null
             if (null === $message) {
                 return $next;
@@ -123,7 +123,7 @@ class LogTarget extends Target
         }
     }
 
-    protected function getTime($timestamp)
+    protected function getTime($timestamp): string
     {
         $parent = parent::getTime($timestamp);
 
