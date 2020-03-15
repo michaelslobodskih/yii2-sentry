@@ -66,19 +66,22 @@ class Integration implements IntegrationInterface
     public function setupOnce(): void
     {
         Scope::addGlobalEventProcessor(function (Event $event): Event {
-            $self = SentrySdk::getCurrentHub()->getIntegration(self::class);
+            $currentHub = SentrySdk::getCurrentHub();
+            $integration = $currentHub->getIntegration(self::class);
+            $client = $currentHub->getClient();
+            $options = $this->options ?? $client->getOptions();
 
-            if (!$self instanceof self) {
+            if (!$integration instanceof self) {
                 return $event;
             }
 
-            $this->applyToEvent($event);
+            $this->applyToEvent($event, $options);
 
             return $event;
         });
     }
 
-    protected function applyToEvent(Event $event): void
+    protected function applyToEvent(Event $event, Options $options): void
     {
         $request = \Yii::$app->getRequest();
 
@@ -97,7 +100,7 @@ class Integration implements IntegrationInterface
 
         // Process headers, cookies, etc. Done the same way as in RequestIntegration, but using Yii's stuff.
         /** @see \Sentry\Integration\RequestIntegration */
-        if ($this->options->shouldSendDefaultPii()) {
+        if ($options->shouldSendDefaultPii()) {
             $headers = $request->getHeaders();
             if ($headers->has('REMOTE_ADDR')) {
                 $requestData['env']['REMOTE_ADDR'] = $headers->get('REMOTE_ADDR');
@@ -122,7 +125,7 @@ class Integration implements IntegrationInterface
                 $bodyParams = $request->getBodyParams();
 
                 $actionId = \Yii::$app->requestedAction->getUniqueId();
-                if (!$this->options->shouldSendDefaultPii() && isset($this->piiBodyFields[$actionId])) {
+                if (!$options->shouldSendDefaultPii() && isset($this->piiBodyFields[$actionId])) {
                     $requestData['data'] = 'Not available due to PII. See "bodyParams" in Additional data block.';
 
                     $this->removeKeysFromArrayRecursively($bodyParams, $this->piiBodyFields[$actionId]);
