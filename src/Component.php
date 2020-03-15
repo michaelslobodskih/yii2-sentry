@@ -5,7 +5,7 @@ namespace OlegTsvetkov\Yii2\Sentry;
 
 use Sentry\Breadcrumb;
 use Sentry\ClientBuilder;
-use Sentry\Integration\ErrorListenerIntegration;
+use Sentry\Integration\FatalErrorListenerIntegration;
 use Sentry\Options;
 use Sentry\SentrySdk;
 use Sentry\State\Hub;
@@ -34,7 +34,7 @@ class Component extends \yii\base\Component implements BootstrapInterface
      */
     public $integrations = [
         Integration::class,
-        ErrorListenerIntegration::class,
+        FatalErrorListenerIntegration::class,
     ];
     /**
      * @var string
