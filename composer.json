@@ -4,7 +4,7 @@
     "keywords": ["logging", "errors", "yii2", "sentry", "v2", "sdk"],
     "type": "library",
     "license": "BSD-3-Clause",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Oleg Tsvetkov",
