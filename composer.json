@@ -4,6 +4,7 @@
     "keywords": ["logging", "errors", "yii2", "sentry", "v2", "sdk"],
     "type": "library",
     "license": "BSD-3-Clause",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Oleg Tsvetkov",
@@ -15,7 +16,7 @@
     },
     "require": {
         "php": "^7.1",
-        "sentry/sentry": "^2.1.0",
+        "sentry/sentry": "^2.3.0",
         "yiisoft/yii2": "~2.0.13"
     },
     "require-dev": {
