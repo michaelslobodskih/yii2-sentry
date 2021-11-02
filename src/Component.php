@@ -11,11 +11,13 @@ use Sentry\SentrySdk;
 use Sentry\State\Hub;
 use Sentry\State\HubInterface;
 use Sentry\State\Scope;
+use Yii;
 use yii\base\ActionEvent;
 use yii\base\BootstrapInterface;
 use yii\base\Controller;
 use yii\base\Event;
 use yii\base\InlineAction;
+use yii\web\Application;
 use yii\web\User;
 use yii\web\UserEvent;
 
@@ -50,7 +52,7 @@ class Component extends \yii\base\Component implements BootstrapInterface
     {
         parent::init();
 
-        $basePath = \Yii::getAlias($this->appBasePath);
+        $basePath = Yii::getAlias($this->appBasePath);
 
         $options = new Options(array_merge([
             'dsn' => $this->dsn,
@@ -85,7 +87,11 @@ class Component extends \yii\base\Component implements BootstrapInterface
         $options->setIntegrations($integrations);
 
         /** @var ClientBuilder $builder */
-        $builder = \Yii::$container->get(ClientBuilder::class, [$options]);
+        $builder = Yii::$container->get(ClientBuilder::class, [$options]);
+
+        // Set the Yii2 Sentry SDK identifier and version
+        $builder->setSdkIdentifier(Version::SDK_IDENTIFIER);
+        $builder->setSdkVersion(Version::SDK_VERSION);
 
         SentrySdk::setCurrentHub(new Hub($builder->getClient()));
 
@@ -99,9 +105,16 @@ class Component extends \yii\base\Component implements BootstrapInterface
     {
         Event::on(User::class, User::EVENT_AFTER_LOGIN, function (UserEvent $event) {
             $this->hub->configureScope(function (Scope $scope) use ($event): void {
-                $scope->setUser([
+
+                $userData = [
                     'id' => $event->identity->getId(),
-                ]);
+                ];
+
+                if(Yii::$app instanceof Application){
+                    $userData['ip_address'] = Yii::$app->getRequest()->getUserIP();
+                }
+
+                $scope->setUser($userData);
             });
         });
 

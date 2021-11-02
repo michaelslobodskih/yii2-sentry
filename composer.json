@@ -1,22 +1,29 @@
 {
-    "name": "siamskoi/yii2-sentry",
+    "name": "exileed/yii2-sentry",
     "description": "Yii2 integration for Sentry",
-    "keywords": ["logging", "errors", "yii2", "sentry", "v2", "sdk"],
+    "keywords": ["logging", "errors", "yii2", "sentry", "sdk"],
     "type": "library",
     "license": "BSD-3-Clause",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Oleg Tsvetkov",
             "email": "me@olegtsvetkov.com"
+        },
+        {
+            "name": "Dmitriy Kuts",
+            "email": "me@exileed.com"
         }
     ],
     "config": {
         "sort-packages": true
     },
     "require": {
-        "php": "^7.1",
-        "sentry/sentry": "^2.3.0",
+        "php": "^7.4 || ^8.0",
+        "sentry/sentry": "^3.3",
+        "sentry/sdk": "^3.1",
+        "symfony/psr-http-message-bridge": "^1.0 | ^2.0",
+        "nyholm/psr7": "^1.0",
         "yiisoft/yii2": "~2.0.13"
     },
     "require-dev": {
