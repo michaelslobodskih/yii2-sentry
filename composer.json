@@ -1,5 +1,5 @@
 {
-    "name": "exileed/yii2-sentry",
+    "name": "michaelslobodskih/yii2-sentry-fresh",
     "description": "Yii2 integration for Sentry",
     "keywords": ["logging", "errors", "yii2", "sentry", "sdk"],
     "type": "library",
