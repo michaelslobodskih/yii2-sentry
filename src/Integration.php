@@ -16,19 +16,19 @@ class Integration implements IntegrationInterface
      *
      * @var string[]
      */
-    public array $httpMethodsWithRequestBody = ['POST', 'PUT', 'PATCH'];
+    public $httpMethodsWithRequestBody = ['POST', 'PUT', 'PATCH'];
     /**
      * List of headers, that should be stripped. Use lower case.
      *
      * @var string[]
      */
-    public array $stripHeaders = ['cookie', 'set-cookie'];
+    public $stripHeaders = ['cookie', 'set-cookie'];
     /**
      * List of headers, that can contain Personal data. Use lower case.
      *
      * @var string[]
      */
-    public array $piiHeaders = ['authorization', 'remote_addr'];
+    public $piiHeaders = ['authorization', 'remote_addr'];
     /**
      * List of routes with keys, that must be stripped from request body
      * For example:
